@@ -1,0 +1,27 @@
+services:
+  # Backend: Python Service
+  - type: web
+    name: ml-builder-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # Frontend: Node/Next.js Service
+  - type: web
+    name: ml-builder-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: ml-builder-backend
+          property: url
+      - key: NODE_VERSION
+        value: 20.9.0
