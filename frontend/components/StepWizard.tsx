@@ -2,7 +2,8 @@
 
 import React, { useState, useRef } from 'react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+console.log("Using API_BASE:", API_BASE);
 
 // === Types ===
 type PreprocessingType = 'standard_scaler' | 'min_max_scaler' | 'drop_nulls';
