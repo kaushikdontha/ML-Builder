@@ -22,6 +22,6 @@ services:
         fromService:
           type: web
           name: ml-builder-backend
-          property: url
+          property: hostport
       - key: NODE_VERSION
         value: 20.9.0

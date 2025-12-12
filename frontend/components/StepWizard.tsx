@@ -152,13 +152,21 @@ export default function StepWizard() {
         if (!file) return;
         setIsUploading(true);
         setUploadError(null);
+        console.log(`Attempting upload to: ${API_BASE}/api/upload`);
         const formData = new FormData();
         formData.append('file', file);
         try {
             const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: formData });
-            if (!res.ok) throw new Error((await res.json()).detail || 'Upload failed');
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`Server error (${res.status}): ${errorText || res.statusText}`);
+            }
             setDatasetMetadata(await res.json());
-        } catch (err: any) { setUploadError(err.message); setDatasetMetadata(null); } finally { setIsUploading(false); }
+        } catch (err: any) {
+            console.error("Upload failed:", err);
+            setUploadError(`Connection failed: ${err.message}. Check console for details.`);
+            setDatasetMetadata(null);
+        } finally { setIsUploading(false); }
     };
 
     const runPipeline = async () => {
