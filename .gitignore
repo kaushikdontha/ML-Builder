@@ -1,0 +1,27 @@
+# General
+.DS_Store
+.env
+.env.local
+
+# Frontend (Next.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.vercel/
+
+# Backend (Python)
+backend/__pycache__/
+backend/*.py[cod]
+backend/venv/
+backend/.venv/
+backend/env/
+
+# ML Artifacts & Data
+backend/uploads/
+backend/generated_models/
+*.pkl
+*.sqlite3
+
+# Logs
+*.log
